@@ -19,14 +19,6 @@ namespace hitch
             InitializeComponent();
 
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-
-            for (int i=0;i<500;i++)
-            {
-                var particle = new Particle();
-                particle.X = picDisplay.Image.Width / 2;
-                particle.Y = picDisplay.Image.Height / 2;
-                particles.Add(particle);
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,8 +34,8 @@ namespace hitch
                 if (particle.life < 0)
                 {
                     particle.life = 20 + Particle.Random.Next(100);
-                    particle.X = picDisplay.Image.Width / 2;
-                    particle.Y = picDisplay.Image.Height / 2;
+                    particle.X = mousePositionX;
+                    particle.Y = mousePositionY;
                     particle.direction = Particle.Random.Next(360);
                     particle.speed = 1 + Particle.Random.Next(10);
                     particle.radius = 2 + Particle.Random.Next(10);
@@ -55,6 +47,23 @@ namespace hitch
                     particle.Y -= (float)(particle.speed * Math.Sin(directionInRadians));
                 }
             }
+            for (int i = 0; i < 10; i++)
+            {
+                if (particles.Count < 500)
+                {
+                    var particle = new ColorfulParticle();
+                    particle.fromColor = Color.Pink;
+                    particle.toColor = Color.FromArgb(0, Color.AliceBlue);
+                    particle.X = mousePositionX;
+                    particle.Y = mousePositionY;
+                    particles.Add(particle);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
         }
 
         private void Render (Graphics g)
@@ -74,6 +83,13 @@ namespace hitch
                 Render(g);
             }
             picDisplay.Invalidate();
+        }
+        private int mousePositionX = 0;
+        private int mousePositionY = 0;
+        private void picDisplay_MouseMove(object sender, MouseEventArgs e)
+        {
+            mousePositionX = e.X;
+            mousePositionY = e.Y;
         }
     }
 }
