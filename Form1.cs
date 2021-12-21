@@ -13,6 +13,7 @@ namespace hitch
     public partial class Form1 : Form
     {
         List<Particle> particles = new List<Particle>();
+        int counter = 0;
 
         public Form1()
         {
@@ -32,6 +33,19 @@ namespace hitch
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_tick(object sender, EventArgs e)
+        {
+            counter++;
+            using (var g = Graphics.FromImage(picDisplay.Image))
+            {
+                g.Clear(Color.White);
+                g.DrawString(counter.ToString(), new Font("Arial", 12),
+                    new SolidBrush(Color.Black),
+                    new PointF { X = picDisplay.Image.Width / 2, Y = picDisplay.Image.Height / 2 });
+                picDisplay.Invalidate();
+            }
         }
     }
 }
