@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace hitch
@@ -19,6 +20,12 @@ namespace hitch
             radius = 2 + Random.Next(10);
             speed = 1 + Random.Next(10);
             direction = Random.Next(360);
+        }
+        public void Draw(Graphics g)
+        {
+            var b = new SolidBrush(Color.Black);
+            g.FillEllipse(b, X - radius, Y - radius, radius * 2, radius * 2);
+            b.Dispose();
         }
     }
 }
