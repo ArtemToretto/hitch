@@ -38,9 +38,22 @@ namespace hitch
         {
             foreach (var particle in particles)
             {
-                var directionInRadians = particle.direction / 180 * Math.PI;
-                particle.X += (float)(particle.speed * Math.Cos(directionInRadians));
-                particle.Y -= (float)(particle.speed * Math.Sin(directionInRadians));
+                particle.life -= 1;
+                if (particle.life < 0)
+                {
+                    particle.life = 20 + Particle.Random.Next(100);
+                    particle.X = picDisplay.Image.Width / 2;
+                    particle.Y = picDisplay.Image.Height / 2;
+                    particle.direction = Particle.Random.Next(360);
+                    particle.speed = 1 + Particle.Random.Next(10);
+                    particle.radius = 2 + Particle.Random.Next(10);
+                }
+                else
+                {
+                    var directionInRadians = particle.direction / 180 * Math.PI;
+                    particle.X += (float)(particle.speed * Math.Cos(directionInRadians));
+                    particle.Y -= (float)(particle.speed * Math.Sin(directionInRadians));
+                }
             }
         }
 
