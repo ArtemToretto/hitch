@@ -11,16 +11,18 @@ namespace hitch
         public int radius;
         public float X;
         public float Y;
-        public float direction; //направление
-        public float speed;
+        public float speedX; //направление
+        public float speedY;
 
         public static Random Random = new Random();
 
         public Particle()
         {
             radius = 2 + Random.Next(10);
-            speed = 1 + Random.Next(10);
-            direction = Random.Next(360);
+            var speed = 1 + Random.Next(10);
+            var direction = Random.Next(360);
+            speedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
+            speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
             life = 20 + Random.Next(100);
         }
         public virtual void Draw(Graphics g)
