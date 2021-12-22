@@ -12,9 +12,9 @@ namespace hitch
 {
     public partial class Form1 : Form
     {
+        Emitter emitter;
         Gun gun;
         List<BaseObject> objects = new List<BaseObject>();
-        Emitter emitter;
         Brush brush = new TextureBrush(Properties.Resources.fon);
         public Form1()
         {
