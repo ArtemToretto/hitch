@@ -153,5 +153,17 @@ namespace hitch
         {
 
         }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            emitter.speedMax = trackBar1.Value;
+            emitter.speedMin = trackBar1.Value;
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            emitter.radiusMax = trackBar2.Value;
+            emitter.radiusMin = trackBar2.Value;
+        }
     }
 }
