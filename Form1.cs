@@ -22,26 +22,26 @@ namespace hitch
         public Form1()
         {
             InitializeComponent();
+            hitchEmitter = new HitchBloodEmitter { gravitationY = 1, particleCount = 0 };
             gunBase = new GunBase(picDisplay.Width / 2, picDisplay.Height - 35, 0);
             gun = new Gun(picDisplay.Width / 2, picDisplay.Height - 65, 180);
             objects.Add(gunBase);
             objects.Add(gun);
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-            emitter = new HitchEmitter { Width = picDisplay.Width / 2 };
+            emitter = new HitchEmitter{ Width = picDisplay.Width / 2 };
             objects.Add(new MrHitch(picDisplay.Width, 0, 0));
             objects.Add(new MrHitch(picDisplay.Width, 0, 0));
             gun.OverlapHitch += (obj) =>
             {
                 foreach (BaseObject o in objects.ToList())
                 {
-                    if (obj==o)
+                    if (obj == o)
                     {
                         score -= o.health;
                     }
-                }
+                }            
                 objects.Add(new MrHitch(picDisplay.Width, 0, 0));
                 objects.Remove(obj);
-                
             };
             gunBase.OverlapHitch += (obj) =>
             {
@@ -68,6 +68,13 @@ namespace hitch
                         }
                         else
                         {
+                            hitchEmitter = new HitchBloodEmitter
+                            {
+                                gravitationY = 1,
+                                particlePerTik = 5,
+                                X = obj.X,
+                                Y = obj.Y
+                            };
                             objects.Add(new MrHitch(picDisplay.Width, 0, 0));
                             objects.Remove(obj);
                         }
@@ -90,16 +97,19 @@ namespace hitch
         {
             updateMrHitch();
             emitter.UpdateState();
+            hitchEmitter.UpdateState();
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
                 g.FillRectangle(brush, 0, 0, picDisplay.Width, picDisplay.Height);
                 emitter.Render(g);
+                hitchEmitter.Render(g);
                 foreach (BaseObject obj in objects.ToList())
                 {
                     g.Transform = obj.GetTransform();
                     obj.Render(g);
                     foreach (BaseObject obj2 in objects.ToList())
                     {
+
                         if (obj!=obj2 && obj2 is MrHitch && obj.Overlaps(obj2,g))
                         {
                             obj.Overlap(obj2);
