@@ -41,13 +41,28 @@ namespace hitch
             };
             emitter.OverlapWitchHitch += (obj) =>
             {
-
+                foreach (BaseObject o in objects.ToList())
+                {
+                    if (o == obj)
+                    {
+                        if (o.health > 0)
+                        {
+                            o.health--;
+                        }
+                        else
+                        {
+                            objects.Add(new MrHitch(picDisplay.Width, 0, 0));
+                            objects.Remove(obj);
+                        }
+                    }
+                }
             };
             emitter.OverlapWithParticle += (p) =>
             {
                 emitter.particles.Remove(p);
             };
         }
+            
 
         private void Form1_Load(object sender, EventArgs e)
         {

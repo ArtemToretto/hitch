@@ -17,16 +17,6 @@ namespace hitch
 
         public static Random Random = new Random();
 
-        public Action<BaseObject> OverlapWitchHitch;
-
-        public void Overlap(BaseObject obj)
-        {
-            if (this.OverlapWitchHitch != null)
-            {
-                this.OverlapWitchHitch(obj);
-            }
-        }
-
         public Particle()
         {
             radius = 2 + Random.Next(10);
@@ -44,31 +34,6 @@ namespace hitch
             var b = new SolidBrush(color);
             g.FillEllipse(b, X - radius, Y - radius, radius * 2, radius * 2);
             b.Dispose();
-        }
-
-        public virtual bool Overlaps(BaseObject obj, Graphics g)
-        {
-            var path1 = this.GetGraphicsPath();
-            var path2 = obj.GetGraphicsPath();
-            path1.Transform(this.GetTransform());
-            path2.Transform(obj.GetTransform());
-            var region = new Region(path1);
-            region.Intersect(path2);
-            return !region.IsEmpty(g);
-        }
-
-        public Matrix GetTransform()
-        {
-            var matrix = new Matrix();
-            matrix.Translate(X, Y);
-            return matrix;
-        }
-
-        public GraphicsPath GetGraphicsPath()
-        {
-            var path = new GraphicsPath();
-            path.AddEllipse(0, 0, radius * 2, radius * 2);
-            return path;
         }
     }
 

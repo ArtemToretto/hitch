@@ -12,6 +12,7 @@ namespace hitch
         public float Y;
         public float Angle;
         public int health;
+        public int healthPoint;
 
         public Action<BaseObject> OverlapHitch;
 

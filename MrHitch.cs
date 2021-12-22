@@ -16,6 +16,7 @@ namespace hitch
             this.X = Random.Next(40, X-40);
             this.Angle = 0;
             health = Random.Next(100, 500);
+            healthPoint = health;
         }
         public override void Render(Graphics g)
         {
@@ -30,23 +31,13 @@ namespace hitch
         {
             mrHitch.X=Random.Next(40, (int)X - 40);
             mrHitch.Y = 0;
-            mrHitch.health = Random.Next(100, 500);
+            mrHitch.health = Random.Next(100, 300);
         }
         public override GraphicsPath GetGraphicsPath()
         {
             var path=base.GetGraphicsPath();
             path.AddEllipse(0, 0, 75, 75);
             return path;
-        }
-        public override void Boom(Particle particle)
-        {
-            float bX = X - particle.X;
-            float bY = Y - particle.Y;
-            double r = Math.Sqrt(bX * bX + bY * bY);
-            if (r<particle.radius)
-            {
-                particle.life = 1;
-            }
         }
     }
 }
