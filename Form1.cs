@@ -24,6 +24,8 @@ namespace hitch
             objects.Add(gun);
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
             emitter = new HitchEmitter { Width = picDisplay.Width / 2 };
+            objects.Add(new MrHitch(picDisplay.Width, 0, 0));
+            objects.Add(new MrHitch(picDisplay.Width, 0, 0));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,6 +35,7 @@ namespace hitch
 
         private void timer1_tick(object sender, EventArgs e)
         {
+            updateMrHitch();
             emitter.UpdateState();
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
@@ -55,5 +58,18 @@ namespace hitch
             gun.Angle = Angle;
             emitter.direction = -Angle+90;
         }
+
+        private void updateMrHitch()
+        {       
+                foreach (BaseObject obj in objects)
+                {
+                    if (obj is MrHitch)
+                    {
+                        obj.Y += 0.7f;
+                    }
+                }
+        }
+
+
     }
 }

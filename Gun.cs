@@ -15,6 +15,7 @@ namespace hitch
             g.FillRectangle(new SolidBrush(Color.Brown), -40,-20, 80, 40);
             g.FillEllipse(new SolidBrush(Color.Black), -40, 15, 20, 20);
             g.FillEllipse(new SolidBrush(Color.Black), 20, 15, 20, 20);
+            g.FillRectangle(new SolidBrush(Color.SaddleBrown), -1000, 32, 2000, 50);
         }
     }
 

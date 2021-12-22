@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text;
 
 namespace hitch
 {
     public class Emitter
     {
-        List<Particle> particles = new List<Particle>();
+        public List<Particle> particles = new List<Particle>();
         public int X;
         public int Y;
         public float direction = 90;
@@ -85,7 +86,9 @@ namespace hitch
             particle.toColor = colorTo;
             return particle;
         }
+
     }
+
 
 
     public class TopEmitter : Emitter

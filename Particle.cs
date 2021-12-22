@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text;
 
 namespace hitch
@@ -33,6 +34,11 @@ namespace hitch
             var b = new SolidBrush(color);
             g.FillEllipse(b, X - radius, Y - radius, radius * 2, radius * 2);
             b.Dispose();
+        }
+
+        public virtual GraphicsPath GetGraphicsPath()
+        {
+            return new GraphicsPath();
         }
     }
 

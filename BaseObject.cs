@@ -8,9 +8,10 @@ namespace hitch
 {
     public class BaseObject
     {
-        public int X;
-        public int Y;
+        public float X;
+        public float Y;
         public float Angle;
+        public int health;
 
         public BaseObject(int X, int Y, float Angle)
         {
@@ -29,5 +30,15 @@ namespace hitch
 
         public virtual void Render(Graphics g)
         { }
+        public virtual void Update(Graphics g, MrHitch mrHitch) { }
+        public virtual int getHealths()
+        {
+            return 0;
+        }
+
+        public virtual GraphicsPath GetGraphicsPath()
+        {
+            return new GraphicsPath();
+        }
     }
 }
