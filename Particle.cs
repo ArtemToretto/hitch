@@ -52,7 +52,15 @@ namespace hitch
         }
         public override void Draw(Graphics g)
         {
-            float k = Math.Min(1f, Math.Abs(life/100));
+            float k;
+            if (life / 100 > 0)
+            {
+                k = Math.Min(1f, life / 100);
+            }
+            else
+            {
+                k = 0;
+            }
             var color = MixColor(toColor, fromColor, k);
             var b = new SolidBrush(color);
             g.FillEllipse(b, X - radius, Y - radius, radius * 2, radius * 2);

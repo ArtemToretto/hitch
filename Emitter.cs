@@ -12,18 +12,18 @@ namespace hitch
         public int Y;
         public float direction = 90;
         public int spreading = 5;
-        public int speedMin = 5;
-        public int speedMax = 15;
-        public int radiusMin = 2;
+        public int speedMin = 10;
+        public int speedMax = 10;
+        public int radiusMin = 5;
         public int radiusMax = 10;
-        public int lifeMin = 20;
-        public int lifeMax = 120;
+        public int lifeMin = 50;
+        public int lifeMax = 100;
         public Color colorFrom = Color.Red;
         public Color colorTo = Color.FromArgb(0,Color.Yellow);
         public float gravitationX=0;
         public float gravitationY=0;
-        public int particleCount = 1000;
-        public int particlePerTik = 3;
+        public int particleCount = 10;
+        public int particlePerTik = 1;
 
         public void UpdateState()
         {
@@ -31,7 +31,7 @@ namespace hitch
             foreach (var particle in particles)
             {
                 particle.life -= 1;
-                if (particle.life < 0 || particle.speedY==0)
+                if (particle.life <= 0)
                 {
                     if (particleToCreate>0)
                     {
@@ -75,7 +75,7 @@ namespace hitch
             var speed = 1 + Particle.Random.Next(speedMin,speedMax);
             particle.speedX = (float)(Math.Cos(Direction / 180 * Math.PI) * speed);
             particle.speedY = -(float)(Math.Sin(Direction / 180 * Math.PI) * speed);
-            particle.radius = 2 + Particle.Random.Next(10);
+            particle.radius = Particle.Random.Next(radiusMin, radiusMax);
         }
 
         public virtual Particle CreateParticle()
@@ -106,8 +106,8 @@ namespace hitch
         public override void resetParticle(Particle particle)
         {
             base.resetParticle(particle);
-            particle.X = Width/2;
-            particle.Y = 380;
+            particle.X = Width;
+            particle.Y = 370;
             
         }
     }

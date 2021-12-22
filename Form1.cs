@@ -14,7 +14,7 @@ namespace hitch
     {
         Gun gun;
         List<BaseObject> objects = new List<BaseObject>();
-        HitchEmitter emitter;
+        Emitter emitter;
         Brush brush = new TextureBrush(Properties.Resources.fon);
         public Form1()
         {
@@ -23,8 +23,7 @@ namespace hitch
             objects.Add(new GunBase(picDisplay.Width/2, picDisplay.Height-35, 0));
             objects.Add(gun);
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-            emitter = new HitchEmitter();
-            emitter.Width = picDisplay.Width;
+            emitter = new HitchEmitter { Width = picDisplay.Width / 2 };
         }
 
         private void Form1_Load(object sender, EventArgs e)
