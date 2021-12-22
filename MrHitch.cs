@@ -38,5 +38,15 @@ namespace hitch
             path.AddEllipse(0, 0, 75, 75);
             return path;
         }
+        public override void Boom(Particle particle)
+        {
+            float bX = X - particle.X;
+            float bY = Y - particle.Y;
+            double r = Math.Sqrt(bX * bX + bY * bY);
+            if (r<particle.radius)
+            {
+                particle.life = 1;
+            }
+        }
     }
 }

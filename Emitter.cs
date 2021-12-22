@@ -67,6 +67,46 @@ namespace hitch
             }
         }
 
+        public Action<BaseObject> OverlapWitchHitch;
+        public Action<Particle> OverlapWithParticle;
+
+        public void OverlapParticle(Particle particle)
+        {
+            if (this.OverlapWithParticle != null)
+            {
+                this.OverlapWithParticle(particle);
+            }
+        }
+        public void Overlap(BaseObject obj)
+        {
+            if (this.OverlapWitchHitch != null)
+            {
+                this.OverlapWitchHitch(obj);
+            }
+        }
+        public virtual bool Overlaps(BaseObject obj, Graphics g,Particle particle)
+        {
+            var path1 = GetGraphicsPath(particle);
+            var path2 = obj.GetGraphicsPath();
+            path1.Transform(GetTransform(particle));
+            path2.Transform(obj.GetTransform());
+            var region = new Region(path1);
+            region.Intersect(path2);
+            return !region.IsEmpty(g);
+        }
+        public Matrix GetTransform(Particle particle)
+        {
+            var matrix = new Matrix();
+            matrix.Translate(particle.X, particle.Y);
+            return matrix;
+        }
+        public GraphicsPath GetGraphicsPath(Particle particle)
+        {
+            var path = new GraphicsPath();
+            path.AddEllipse(0, 0, particle.radius * 2, particle.radius * 2);
+            return path;
+        }
+
         public virtual void resetParticle(Particle particle)
         {
             particle.life = Particle.Random.Next(lifeMin,lifeMax);

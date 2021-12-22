@@ -12,7 +12,8 @@ namespace hitch
 {
     public partial class Form1 : Form
     {
-        List<Emitter> emitters = new List<Emitter>();
+        Emitter emitter;
+        Emitter hitchEmitter;
         Gun gun;
         GunBase gunBase;
         List<BaseObject> objects = new List<BaseObject>();
@@ -25,13 +26,26 @@ namespace hitch
             objects.Add(gunBase);
             objects.Add(gun);
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-            emitters.Add(new HitchEmitter { Width = picDisplay.Width / 2 });
+            emitter = new HitchEmitter { Width = picDisplay.Width / 2 };
             objects.Add(new MrHitch(picDisplay.Width, 0, 0));
             objects.Add(new MrHitch(picDisplay.Width, 0, 0));
+            gun.OverlapHitch += (obj) =>
+            {
+                objects.Add(new MrHitch(picDisplay.Width, 0, 0));
+                objects.Remove(obj);
+            };
             gunBase.OverlapHitch += (obj) =>
             {
                 objects.Add(new MrHitch(picDisplay.Width, 0, 0));
                 objects.Remove(obj);
+            };
+            emitter.OverlapWitchHitch += (obj) =>
+            {
+
+            };
+            emitter.OverlapWithParticle += (p) =>
+            {
+                emitter.particles.Remove(p);
             };
         }
 
@@ -43,18 +57,11 @@ namespace hitch
         private void timer1_tick(object sender, EventArgs e)
         {
             updateMrHitch();
-            foreach (Emitter emitter in emitters)
-            {
-                emitter.UpdateState();
-            }
+            emitter.UpdateState();
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
                 g.FillRectangle(brush, 0, 0, picDisplay.Width, picDisplay.Height);
-
-                foreach (Emitter emitter in emitters)
-                {
-                    emitter.Render(g);
-                }
+                emitter.Render(g);
                 foreach (BaseObject obj in objects.ToList())
                 {
                     g.Transform = obj.GetTransform();
@@ -64,6 +71,15 @@ namespace hitch
                         if (obj!=obj2 && obj2 is MrHitch && obj.Overlaps(obj2,g))
                         {
                             obj.Overlap(obj2);
+                        }
+
+                        foreach (Particle particle in emitter.particles.ToList())
+                        {
+                            if (obj is MrHitch && emitter.Overlaps(obj,g,particle))
+                            {
+                                emitter.Overlap(obj);
+                                emitter.OverlapParticle(particle);
+                            }
                         }
                     }
                 }
@@ -77,7 +93,7 @@ namespace hitch
             float Y=e.Y - gun.Y;
             float Angle= 180 - MathF.Atan2(X, Y) * 180 / MathF.PI;
             gun.Angle = Angle;
-            emitters[0].direction = -Angle+90;
+            emitter.direction = -Angle+90;
         }
 
         private void updateMrHitch()

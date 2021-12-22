@@ -22,7 +22,7 @@ namespace hitch
                 this.OverlapHitch(obj);
             }
         }
-
+        public virtual void Boom(Particle particle) { }
         public BaseObject(int X, int Y, float Angle)
         {
             this.X = X;

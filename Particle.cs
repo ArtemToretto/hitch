@@ -17,13 +17,13 @@ namespace hitch
 
         public static Random Random = new Random();
 
-        public Action<Particle, BaseObject> OverlapWitchParticle;
+        public Action<BaseObject> OverlapWitchHitch;
 
         public void Overlap(BaseObject obj)
         {
-            if (this.OverlapWitchParticle != null)
+            if (this.OverlapWitchHitch != null)
             {
-                this.OverlapWitchParticle(this, obj);
+                this.OverlapWitchHitch(obj);
             }
         }
 
@@ -67,7 +67,7 @@ namespace hitch
         public GraphicsPath GetGraphicsPath()
         {
             var path = new GraphicsPath();
-            path.AddEllipse(X - radius, Y - radius, radius * 2, radius * 2);
+            path.AddEllipse(0, 0, radius * 2, radius * 2);
             return path;
         }
     }
