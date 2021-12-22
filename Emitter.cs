@@ -16,7 +16,7 @@ namespace hitch
         public int speedMin = 10;
         public int speedMax = 10;
         public int radiusMin = 5;
-        public int radiusMax = 10;
+        public int radiusMax = 5;
         public int lifeMin = 50;
         public int lifeMax = 100;
         public Color colorFrom = Color.Red;

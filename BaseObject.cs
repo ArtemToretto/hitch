@@ -13,6 +13,16 @@ namespace hitch
         public float Angle;
         public int health;
 
+        public Action<BaseObject> OverlapHitch;
+
+        public virtual void Overlap(BaseObject obj)
+        {
+            if (this.OverlapHitch!=null)
+            {
+                this.OverlapHitch(obj);
+            }
+        }
+
         public BaseObject(int X, int Y, float Angle)
         {
             this.X = X;
@@ -34,6 +44,17 @@ namespace hitch
         public virtual int getHealths()
         {
             return 0;
+        }
+
+        public virtual bool Overlaps(BaseObject obj, Graphics g)
+        {
+            var path1 = this.GetGraphicsPath();
+            var path2 = obj.GetGraphicsPath();
+            path1.Transform(this.GetTransform());
+            path2.Transform(obj.GetTransform());
+            var region = new Region(path1);
+            region.Intersect(path2);
+            return !region.IsEmpty(g);
         }
 
         public virtual GraphicsPath GetGraphicsPath()

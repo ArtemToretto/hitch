@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text;
 
 namespace hitch
@@ -30,6 +31,12 @@ namespace hitch
             mrHitch.X=Random.Next(40, (int)X - 40);
             mrHitch.Y = 0;
             mrHitch.health = Random.Next(100, 500);
+        }
+        public override GraphicsPath GetGraphicsPath()
+        {
+            var path=base.GetGraphicsPath();
+            path.AddEllipse(0, 0, 75, 75);
+            return path;
         }
     }
 }
