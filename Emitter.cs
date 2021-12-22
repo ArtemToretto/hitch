@@ -10,7 +10,7 @@ namespace hitch
         List<Particle> particles = new List<Particle>();
         public int X;
         public int Y;
-        public int direction = 90;
+        public float direction = 90;
         public int spreading = 5;
         public int speedMin = 5;
         public int speedMax = 15;
@@ -31,7 +31,7 @@ namespace hitch
             foreach (var particle in particles)
             {
                 particle.life -= 1;
-                if (particle.life < 0)
+                if (particle.life < 0 || particle.speedY==0)
                 {
                     if (particleToCreate>0)
                     {
@@ -102,11 +102,12 @@ namespace hitch
 
     public class HitchEmitter : Emitter
     {
+        public int Width;
         public override void resetParticle(Particle particle)
         {
             base.resetParticle(particle);
-            particle.X = 200;
-            particle.Y = 150;
+            particle.X = Width/2;
+            particle.Y = 380;
             
         }
     }

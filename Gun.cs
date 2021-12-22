@@ -5,16 +5,28 @@ using System.Text;
 
 namespace hitch
 {
+    public class GunBase : BaseObject
+    {
+        public GunBase(int X, int Y, float Angle) : base(X, Y, Angle)
+        {
+        }
+        public override void Render(Graphics g)
+        {
+            g.FillRectangle(new SolidBrush(Color.Brown), -40,-20, 80, 40);
+            g.FillEllipse(new SolidBrush(Color.Black), -40, 15, 20, 20);
+            g.FillEllipse(new SolidBrush(Color.Black), 20, 15, 20, 20);
+        }
+    }
+
     public class Gun : BaseObject
     {
         public Gun(int X, int Y, float Angle) : base(X, Y, Angle)
         {
         }
+
         public override void Render(Graphics g)
         {
-            g.FillRectangle(new SolidBrush(Color.Brown), 200, 200, 80, 40);
-            g.FillEllipse(new SolidBrush(Color.Red), 180, 180, 20, 20);
-            g.FillEllipse(new SolidBrush(Color.Red), 220, 220, 20, 20);
+            g.FillRectangle(new SolidBrush(Color.Black), -15, -30, 30, 60);
         }
     }
 }
