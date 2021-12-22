@@ -10,8 +10,8 @@ namespace hitch
         List<Particle> particles = new List<Particle>();
         public int X;
         public int Y;
-        public int direction = 10;
-        public int spreading = 360;
+        public int direction = 90;
+        public int spreading = 5;
         public int speedMin = 5;
         public int speedMax = 15;
         public int radiusMin = 2;
@@ -21,7 +21,7 @@ namespace hitch
         public Color colorFrom = Color.Red;
         public Color colorTo = Color.FromArgb(0,Color.Yellow);
         public float gravitationX=0;
-        public float gravitationY=1;
+        public float gravitationY=0;
         public int particleCount = 1000;
         public int particlePerTik = 3;
 
@@ -97,6 +97,17 @@ namespace hitch
             particle.X = Particle.Random.Next(Width);
             particle.Y = 0;
             particle.speedX = Particle.Random.Next(-2, 2);
+        }
+    }
+
+    public class HitchEmitter : Emitter
+    {
+        public override void resetParticle(Particle particle)
+        {
+            base.resetParticle(particle);
+            particle.X = 200;
+            particle.Y = 150;
+            
         }
     }
 }
