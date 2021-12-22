@@ -13,8 +13,8 @@ namespace hitch
         public float Y;
         public float direction = 90;
         public int spreading = 5;
-        public int speedMin = 4;
-        public int speedMax = 4;
+        public int speedMin = 15;
+        public int speedMax = 15;
         public int radiusMin = 5;
         public int radiusMax = 5;
         public int lifeMin = 50;
@@ -171,7 +171,7 @@ namespace hitch
         {
             base.resetParticle(particle);
             particle.X = Width;
-            particle.Y = 370;
+            particle.Y = 378;
 
         }
     }

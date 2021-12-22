@@ -24,7 +24,7 @@ namespace hitch
             InitializeComponent();
             hitchEmitter = new HitchBloodEmitter { gravitationY = 1, particleCount = 0 };
             gunBase = new GunBase(picDisplay.Width / 2, picDisplay.Height - 35, 0);
-            gun = new Gun(picDisplay.Width / 2, picDisplay.Height - 65, 180);
+            gun = new Gun(picDisplay.Width / 2, picDisplay.Height - 60, 180);
             objects.Add(gunBase);
             objects.Add(gun);
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
@@ -164,6 +164,21 @@ namespace hitch
         {
             emitter.radiusMax = trackBar2.Value;
             emitter.radiusMin = trackBar2.Value;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            emitter.particlePerTik = trackBar3.Value;
         }
     }
 }
