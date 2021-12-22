@@ -42,7 +42,7 @@ namespace hitch
         public override GraphicsPath GetGraphicsPath()
         {
             var path = base.GetGraphicsPath();
-            path.AddRectangle(new Rectangle(-30, -15, 60, 30));
+            path.AddRectangle(new Rectangle(-15, -30, 30, 60));
             return path;
         }
     }

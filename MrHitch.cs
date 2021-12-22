@@ -15,8 +15,7 @@ namespace hitch
             this.Y = 0;
             this.X = Random.Next(40, X-40);
             this.Angle = 0;
-            health = Random.Next(100, 500);
-            healthPoint = health;
+            health = Random.Next(100, 300);
         }
         public override void Render(Graphics g)
         {
@@ -26,12 +25,6 @@ namespace hitch
             new Font("Verdana", 10),
             new SolidBrush(Color.Black),
             22,77);
-        }
-        public override void Update(Graphics g, MrHitch mrHitch)
-        {
-            mrHitch.X=Random.Next(40, (int)X - 40);
-            mrHitch.Y = 0;
-            mrHitch.health = Random.Next(100, 300);
         }
         public override GraphicsPath GetGraphicsPath()
         {

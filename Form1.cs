@@ -12,6 +12,7 @@ namespace hitch
 {
     public partial class Form1 : Form
     {
+        int score = 0;
         Emitter emitter;
         Emitter hitchEmitter;
         Gun gun;
@@ -31,11 +32,26 @@ namespace hitch
             objects.Add(new MrHitch(picDisplay.Width, 0, 0));
             gun.OverlapHitch += (obj) =>
             {
+                foreach (BaseObject o in objects.ToList())
+                {
+                    if (obj==o)
+                    {
+                        score -= o.health;
+                    }
+                }
                 objects.Add(new MrHitch(picDisplay.Width, 0, 0));
                 objects.Remove(obj);
+                
             };
             gunBase.OverlapHitch += (obj) =>
             {
+                foreach (BaseObject o in objects.ToList())
+                {
+                    if (obj == o)
+                    {
+                        score -= o.health;
+                    }
+                }
                 objects.Add(new MrHitch(picDisplay.Width, 0, 0));
                 objects.Remove(obj);
             };
@@ -48,6 +64,7 @@ namespace hitch
                         if (o.health > 0)
                         {
                             o.health--;
+                            score++;
                         }
                         else
                         {
@@ -112,16 +129,19 @@ namespace hitch
         }
 
         private void updateMrHitch()
-        {       
-                foreach (BaseObject obj in objects)
+        {
+            foreach (BaseObject obj in objects)
+            {
+                if (obj is MrHitch)
                 {
-                    if (obj is MrHitch)
-                    {
-                        obj.Y += 0.7f;
-                    }
+                    obj.Y += 0.7f;
                 }
+            }
+            textBox1.Text = $"Счёт: {score}";
         }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }
