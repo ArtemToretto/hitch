@@ -11,7 +11,7 @@ namespace hitch
         public int radius;
         public float X;
         public float Y;
-        public float speedX; //направление
+        public float speedX;
         public float speedY;
 
         public static Random Random = new Random();
@@ -43,6 +43,7 @@ namespace hitch
         
         public static Color MixColor(Color c1,Color c2, float k)
         {
+            
             return Color.FromArgb(
                 (int)(c2.A * k + c1.A * (1 - k)),
                 (int)(c2.R * k + c1.R * (1 - k)),
@@ -51,7 +52,7 @@ namespace hitch
         }
         public override void Draw(Graphics g)
         {
-            float k = Math.Min(1f, life / 100);
+            float k = Math.Min(1f, Math.Abs(life/100));
             var color = MixColor(toColor, fromColor, k);
             var b = new SolidBrush(color);
             g.FillEllipse(b, X - radius, Y - radius, radius * 2, radius * 2);

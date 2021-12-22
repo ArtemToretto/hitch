@@ -8,20 +8,36 @@ namespace hitch
     public class Emitter
     {
         List<Particle> particles = new List<Particle>();
-        public int mousePositionX;
-        public int mousePositionY;
+        public int X;
+        public int Y;
+        public int direction = 10;
+        public int spreading = 360;
+        public int speedMin = 5;
+        public int speedMax = 15;
+        public int radiusMin = 2;
+        public int radiusMax = 10;
+        public int lifeMin = 20;
+        public int lifeMax = 120;
+        public Color colorFrom = Color.Red;
+        public Color colorTo = Color.FromArgb(0,Color.Yellow);
         public float gravitationX=0;
         public float gravitationY=1;
         public int particleCount = 1000;
+        public int particlePerTik = 3;
 
         public void UpdateState()
         {
+            int particleToCreate = particlePerTik;
             foreach (var particle in particles)
             {
                 particle.life -= 1;
                 if (particle.life < 0)
                 {
-                    resetParticle(particle);
+                    if (particleToCreate>0)
+                    {
+                        particleToCreate -= 1;
+                        resetParticle(particle);
+                    }
                 }
                 else
                 {
@@ -31,20 +47,13 @@ namespace hitch
                     particle.Y += particle.speedY;
                 }
             }
-            for (int i = 0; i < 10; i++)
+            while (particleToCreate>=1)
             {
-                if (particles.Count < particleCount)
-                {
-                    var particle = new ColorfulParticle();
-                    particle.fromColor = Color.Pink;
-                    particle.toColor = Color.FromArgb(0, Color.Blue);
+                    particleToCreate -= 1;
+                    var particle = CreateParticle();
                     resetParticle(particle);
                     particles.Add(particle);
-                }
-                else
-                {
-                    break;
-                }
+                
             }
 
         }
@@ -59,14 +68,22 @@ namespace hitch
 
         public virtual void resetParticle(Particle particle)
         {
-            particle.life = 20 + Particle.Random.Next(100);
-            particle.X = mousePositionX;
-            particle.Y = mousePositionY;
-            var direction = (double)Particle.Random.Next(360);
-            var speed = 1 + Particle.Random.Next(10);
-            particle.speedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
-            particle.speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
+            particle.life = Particle.Random.Next(lifeMin,lifeMax);
+            particle.X = X;
+            particle.Y = Y;
+            var Direction = direction + (double)Particle.Random.Next(spreading)-spreading/2;
+            var speed = 1 + Particle.Random.Next(speedMin,speedMax);
+            particle.speedX = (float)(Math.Cos(Direction / 180 * Math.PI) * speed);
+            particle.speedY = -(float)(Math.Sin(Direction / 180 * Math.PI) * speed);
             particle.radius = 2 + Particle.Random.Next(10);
+        }
+
+        public virtual Particle CreateParticle()
+        {
+            var particle = new ColorfulParticle();
+            particle.fromColor = colorFrom;
+            particle.toColor = colorTo;
+            return particle;
         }
     }
 

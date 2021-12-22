@@ -19,7 +19,8 @@ namespace hitch
             InitializeComponent();
 
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-            emitter = new TopEmitter { Width = picDisplay.Width, gravitationY = 0.25f };
+            //emitter = new TopEmitter { Width = picDisplay.Width, gravitationY = 0.25f };
+            emitter = new Emitter();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -40,8 +41,8 @@ namespace hitch
 
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
-            emitter.mousePositionX = e.X;
-            emitter.mousePositionY = e.Y;
+            emitter.X = e.X;
+            emitter.Y = e.Y;
         }
     }
 }
