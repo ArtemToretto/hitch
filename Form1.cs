@@ -180,5 +180,25 @@ namespace hitch
         {
             emitter.particlePerTik = trackBar3.Value;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog()==DialogResult.OK)
+            {
+                emitter.particles.Clear();
+                var color = colorDialog1.Color;
+                emitter.colorFrom = color;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                emitter.particles.Clear();
+                var color = colorDialog1.Color;
+                emitter.colorTo = Color.FromArgb(0,color);
+            }
+        }
     }
 }
